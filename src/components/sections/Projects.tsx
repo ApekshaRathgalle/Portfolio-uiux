@@ -9,23 +9,24 @@ const Projects: React.FC = () => {
 
   const projectCategories = [
     {
-      title: 'Full Stack Projects',
-      description: 'Complete web applications with modern tech stacks',
-      icon: Code2,
-      route: '/projects/fullstack',
-      color: 'from-emerald-500 to-emerald-600',
-      bgPattern: 'bg-gradient-to-br from-emerald-50 to-emerald-100',
-      count: '6'
-    },
-    {
       title: 'UI/UX Projects',
       description: 'User-centered design solutions and case studies',
       icon: Palette,
       route: '/projects/uiux',
       color: 'from-gray-800 to-gray-900',
       bgPattern: 'bg-gradient-to-br from-gray-50 to-gray-100',
-      count: '4'
-    }
+      count: '5'
+    },
+    {
+      title: 'Full Stack Projects',
+      description: 'Complete web applications with modern tech stacks',
+      icon: Code2,
+      route: '/projects/fullstack',
+      color: 'from-emerald-500 to-emerald-600',
+      bgPattern: 'bg-gradient-to-br from-emerald-50 to-emerald-100',
+      count: '5'
+    },
+    
   ];
 
   const containerVariants = {
