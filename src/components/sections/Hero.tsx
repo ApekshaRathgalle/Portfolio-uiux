@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300">
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
                 transition={{ delay: 1, duration: 0.6 }}
                 className="text-xl text-gray-600 max-w-lg leading-relaxed"
               >
-                UI/UX Designer
+                Welcome to my creative space
               </motion.p>
             </div>
 

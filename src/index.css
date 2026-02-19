@@ -13,6 +13,7 @@ html {
 
 body {
   overflow-x: hidden;
+  @apply bg-white dark:bg-black;
 }
 
 /* Dark mode custom scrollbar */
@@ -84,7 +85,7 @@ body {
 
 /* Glow effects */
 .glow-emerald {
-  box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 0 20px rgba(255, 5, 80, 0.3);
 }
 
 .dark .glow-emerald {

@@ -28,29 +28,25 @@ const Contact: React.FC = () => {
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      value: 'Connect with me',
+      value: 'Connect on LinkedIn',
       href: contactInfo.linkedin,
       gradient: 'from-blue-600 to-blue-700',
-      color: 'text-blue-600 dark:text-blue-400'
+      color: 'text-blue-600 dark:text-blue-500'
     },
     {
       icon: Github,
       label: 'GitHub',
-      value: 'View my projects',
+      value: 'View my repositories',
       href: contactInfo.github,
-      gradient: 'from-gray-700 to-gray-800',
-      color: 'text-gray-700 dark:text-gray-300'
+      gradient: 'from-gray-700 to-gray-900',
+      color: 'text-gray-700 dark:text-gray-400'
     }
   ];
 
-  const handleCopy = async (text: string, label: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopiedItem(label);
-      setTimeout(() => setCopiedItem(null), 2000);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-    }
+  const handleCopy = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedItem(label);
+    setTimeout(() => setCopiedItem(null), 2000);
   };
 
   const ContactMethod: React.FC<{ method: typeof contactMethods[0]; index: number }> = ({ method, index }) => {
@@ -150,35 +146,30 @@ const Contact: React.FC = () => {
 
         {/* Animated background glow */}
         <motion.div
-          className="absolute inset-0 rounded-2xl bg-gradient-to-r 
-                     from-emerald-500/5 via-emerald-400/5 to-emerald-600/5
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10
-                     blur-xl"
-          initial={false}
-          whileHover={{ scale: 1.02 }}
+          className="absolute inset-0 -z-10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(circle at center, ${method.gradient} 0%, transparent 70%)`
+          }}
         />
       </motion.div>
     );
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 
-                                   bg-gradient-to-br from-gray-50 via-white to-gray-100
-                                   dark:from-gray-900 dark:via-gray-900 dark:to-gray-800
-                                   relative overflow-hidden">
+   <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300 relative overflow-hidden">
       
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-20">
         <motion.div 
-          animate={{ scale: [1, 1.1, 1] }}
+          animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 right-10 w-80 h-80 bg-emerald-200 dark:bg-emerald-900/20 
+          className="absolute top-20 right-10 w-80 h-80 bg-emerald-900/20 
                      rounded-full blur-3xl" 
         />
         <motion.div 
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute bottom-20 left-10 w-96 h-96 bg-emerald-100 dark:bg-emerald-900/10 
+          className="absolute bottom-20 left-10 w-96 h-96 bg-emerald-900/10 
                      rounded-full blur-3xl" 
         />
       </div>
@@ -240,30 +231,25 @@ const Contact: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm 
-                         p-8 rounded-3xl shadow-xl 
-                         border border-gray-200/50 dark:border-gray-700/50
-                         hover:shadow-2xl transition-shadow duration-300">
+          <div className="bg-gradient-to-r from-emerald-500/10 to-emerald-600/10 
+                         dark:from-emerald-400/10 dark:to-emerald-500/10
+                         backdrop-blur-sm rounded-3xl p-8 md:p-12 text-center
+                         border border-emerald-500/20 dark:border-emerald-400/20
+                         relative overflow-hidden">
             
-            {/* Floating location icon */}
+            {/* Location Icon */}
             <motion.div
-              animate={{ 
-                y: [-2, 2, -2],
-                rotate: [0, 2, -2, 0]
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600
-                        rounded-full flex items-center justify-center mx-auto mb-6
-                        shadow-lg shadow-emerald-500/25"
+              initial={{ scale: 0, rotate: -180 }}
+              whileInView={{ scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+              className="w-16 h-16 bg-emerald-500 dark:bg-emerald-400 rounded-2xl 
+                       flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/30 dark:shadow-emerald-400/30"
             >
               <MapPin className="w-8 h-8 text-white" />
             </motion.div>
 
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

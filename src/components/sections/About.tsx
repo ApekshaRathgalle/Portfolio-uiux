@@ -1,34 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Calendar, MapPin, ArrowDown, Sparkles } from 'lucide-react';
-import AnimatedButton from '../ui/AnimatedButton';
+import { Sparkles, GraduationCap, Calendar, ArrowDown } from 'lucide-react';
 import { education } from '../../data/skills';
 
 const About: React.FC = () => {
-  function scrollToProjects(event: React.MouseEvent<HTMLButtonElement>): void {
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  }
-
   return (
-    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-300 relative overflow-hidden">
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           animate={{
-            rotate: [0, 180, 360],
+            rotate: [0, 360],
             scale: [1, 1.2, 1],
-            opacity: [0.5, 1, 0.5]
+            opacity: [0.3, 0.6, 0.3]
           }}
           transition={{
-            duration: 4,
+            duration: 20,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "linear"
           }}
           className="absolute top-20 left-10 text-emerald-500/20 dark:text-emerald-400/20"
         >
@@ -315,7 +304,7 @@ const About: React.FC = () => {
                       </div>
                       
                       <motion.p 
-                        className="text-gray-600 dark:text-gray-300 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300"
+                        className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed"
                         initial={{ opacity: 0.8 }}
                         whileHover={{ opacity: 1 }}
                       >
@@ -329,20 +318,16 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Enhanced Scroll indicator */}
+        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, type: "spring", stiffness: 300 }}
-          className="flex justify-center mt-16"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="mt-20 flex justify-center"
         >
           <motion.button
-            onClick={scrollToProjects}
-            whileHover={{ 
-              y: -2,
-              scale: 1.1
-            }}
-            whileTap={{ scale: 0.95 }}
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors duration-200 relative group"
           >
             <motion.div

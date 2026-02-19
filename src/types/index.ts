@@ -11,7 +11,7 @@ export interface Project {
   videoUrl?: string;
   demoUrl?: string;
   githubUrl?: string;
-  category: 'fullstack' | 'uiux';
+  category: 'uiux' | 'video' | 'graphic' | 'animation';
   featured: boolean;
   timeline: string;
 }

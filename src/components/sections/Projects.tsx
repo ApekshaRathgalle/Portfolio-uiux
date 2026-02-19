@@ -1,156 +1,259 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Code2, Palette, ArrowRight } from 'lucide-react';
+import { Palette, Video, Zap, Sparkles, ArrowUpRight } from 'lucide-react';
+import { useRef } from 'react';
 
+interface ProjectCategory {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  route: string;
+  count: string;
+  accent: string;
+  tag: string;
+  year: string;
+}
+
+const projectCategories: ProjectCategory[] = [
+  {
+    title: 'UI/UX Design',
+    description: 'User-centered design for web and mobile',
+    icon: Sparkles,
+    route: '/projects/uiux',
+    count: '05',
+    accent: '#10b981',
+    tag: 'Figma · Prototyping · User Research',
+    year: '2024',
+  },
+  {
+    title: 'Video Editing',
+    description: 'Professional video production and editing',
+    icon: Video,
+    route: '/projects/video',
+    count: '03',
+    accent: '#8b5cf6',
+    tag: 'Premiere · After Effects · Color Grade',
+    year: '2023',
+  },
+  {
+    title: 'Graphic Design',
+    description: 'Visual identity and marketing design projects',
+    icon: Palette,
+    route: '/projects/graphic',
+    count: '04',
+    accent: '#ec4899',
+    tag: 'Branding · Print · Illustration',
+    year: '2023',
+  },
+  {
+    title: 'Animation',
+    description: '2D/3D animation and motion graphics',
+    icon: Zap,
+    route: '/projects/animation',
+    count: '03',
+    accent: '#f59e0b',
+    tag: 'Lottie · Blender · Motion',
+    year: '2024',
+  },
+];
+
+// Duplicate for seamless infinite loop
+const allCards = [...projectCategories, ...projectCategories];
+
+const CARD_WIDTH = 380;
+const CARD_GAP = 28;
+const SPEED = 0.6;
+
+const InfiniteTrack: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
+  const x = useMotionValue(0);
+  const isPaused = useRef(false);
+
+  const totalWidth = (CARD_WIDTH + CARD_GAP) * projectCategories.length;
+
+  useAnimationFrame(() => {
+    if (isPaused.current) return;
+    const current = x.get();
+    const next = current - SPEED;
+    x.set(next <= -totalWidth ? 0 : next);
+  });
+
+  return (
+    <div
+      className="relative overflow-hidden"
+      style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)' }}
+    >
+      <motion.div
+        style={{ x, display: 'flex', gap: CARD_GAP, willChange: 'transform' }}
+        onMouseEnter={() => (isPaused.current = true)}
+        onMouseLeave={() => (isPaused.current = false)}
+      >
+        {allCards.map((cat, i) => {
+          const Icon = cat.icon;
+          return (
+            <motion.div
+              key={`${cat.title}-${i}`}
+              onClick={() => navigate(cat.route)}
+              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              style={{ minWidth: CARD_WIDTH }}
+              className="rounded-3xl cursor-pointer group
+                       bg-white dark:bg-gray-800
+                       border border-gray-200/50 dark:border-gray-700/50
+                       hover:border-emerald-500/30 dark:hover:border-emerald-400/30
+                       shadow-lg hover:shadow-2xl dark:shadow-gray-900/20
+                       transition-all duration-300
+                       overflow-hidden relative"
+            >
+              <div className="p-8 relative z-10 flex flex-col h-full">
+                {/* Animated gradient background overlay */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `linear-gradient(135deg, ${cat.accent}15 0%, transparent 100%)`,
+                  }}
+                />
+
+                {/* Top row */}
+                <div className="relative z-10 flex items-start justify-between">
+                  {/* Icon */}
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center
+                              bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200/50 dark:border-emerald-700/50"
+                  >
+                    <Icon style={{ color: cat.accent }} className="w-6 h-6" />
+                  </div>
+
+                  {/* Year + count */}
+                  <div className="text-right">
+                    <div className="text-xs font-mono text-gray-400 dark:text-gray-500 tracking-widest">{cat.year}</div>
+                    <div
+                      className="text-5xl font-black leading-none mt-1 opacity-60"
+                      style={{
+                        color: cat.accent,
+                        fontFamily: '"Bebas Neue", Impact, sans-serif',
+                      }}
+                    >
+                      {cat.count}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Center divider line */}
+                <div className="my-6 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+
+                {/* Title + desc */}
+                <div className="flex-1 mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                    {cat.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{cat.description}</p>
+                  <div className="text-xs text-gray-500 dark:text-gray-500 font-mono tracking-wide">{cat.tag}</div>
+                </div>
+
+                {/* Bottom CTA row */}
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between pt-2">
+                    <span
+                      className="text-sm font-semibold tracking-widest uppercase"
+                      style={{ color: cat.accent }}
+                    >
+                      Explore
+                    </span>
+                    <motion.div
+                      className="w-9 h-9 rounded-full flex items-center justify-center"
+                      style={{ background: cat.accent }}
+                      whileHover={{ scale: 1.15 }}
+                    >
+                      <ArrowUpRight className="w-4 h-4 text-white" />
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+    </div>
+  );
+};
 
 const Projects: React.FC = () => {
   const navigate = useNavigate();
 
-  const projectCategories = [
-    {
-      title: 'UI/UX Projects',
-      description: 'User-centered design solutions and case studies',
-      icon: Palette,
-      route: '/projects/uiux',
-      color: 'from-gray-800 to-gray-900',
-      bgPattern: 'bg-gradient-to-br from-gray-50 to-gray-100',
-      count: '5'
-    },
-    {
-      title: 'Full Stack Projects',
-      description: 'Complete web applications with modern tech stacks',
-      icon: Code2,
-      route: '/projects/fullstack',
-      color: 'from-emerald-500 to-emerald-600',
-      bgPattern: 'bg-gradient-to-br from-emerald-50 to-emerald-100',
-      count: '5'
-    },
-    
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.3
-      }
-    }
-  };
-
-  const cardVariants = {
-  hidden: { opacity: 0, y: 50, rotateX: -15 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    rotateX: 0,
-    transition: { duration: 0.6, ease: [0.42, 0, 0.58, 1] }
-  }
-} as const;
-
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="projects"
+      className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden
+                 bg-white dark:bg-black
+                 transition-colors duration-300"
+    >
+      {/* Animated background elements - matching Skills section style */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-900/20 
+                       rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-900/10 
+                       rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header - matching Skills/Contact section style */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
           <motion.h2
-            variants={cardVariants}
-            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 relative"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6"
           >
-            Featured <span className="text-emerald-600">Projects</span>
+            Featured <span className="text-emerald-600 dark:text-emerald-400">Projects</span>
           </motion.h2>
           <motion.p
-            variants={cardVariants}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            Explore my work across full-stack development and UI/UX design
+            Explore my diverse portfolio of creative projects across design, development, and multimedia
           </motion.p>
         </motion.div>
 
+        {/* Scrolling track */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+          transition={{ duration: 1, delay: 0.3 }}
         >
-          {projectCategories.map((category, index) => {
-            const IconComponent = category.icon;
-            
-            return (
-              <motion.div
-                key={category.title}
-                variants={cardVariants}
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 5,
-                  z: 50
-                }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => navigate(category.route)}
-                className={`relative overflow-hidden rounded-2xl ${category.bgPattern} p-8 cursor-pointer group shadow-lg hover:shadow-2xl transition-all duration-300`}
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {/* Background gradient overlay */}
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-                />
-                
-                {/* Floating badge */}
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
-                  className="absolute top-6 right-6 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-emerald-600 font-bold text-lg"
-                >
-                  {category.count}
-                </motion.div>
+          <InfiniteTrack navigate={navigate} />
+        </motion.div>
 
-                {/* Content */}
-                <div className="relative z-10 space-y-6">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center"
-                  >
-                    <IconComponent className={`w-8 h-8 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`} />
-                  </motion.div>
-
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors duration-300">
-                      {category.title}
-                    </h3>
-                    <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                      {category.description}
-                    </p>
-                  </div>
-
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    className="flex items-center text-emerald-600 font-semibold group-hover:text-emerald-700 transition-colors duration-300"
-                  >
-                    <span>Explore Projects</span>
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                  </motion.div>
-                </div>
-
-                {/* Decorative elements */}
-                <motion.div
-                  className="absolute top-0 right-0 w-32 h-32 bg-emerald-200/20 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"
-                />
-                <motion.div
-                  className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-300/20 rounded-full translate-y-12 -translate-x-12 group-hover:scale-125 transition-transform duration-500"
-                />
-              </motion.div>
-            );
-          })}
+        {/* Bottom decoration - matching Skills section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-flex items-center space-x-2 px-4 py-2 
+                         bg-emerald-100 dark:bg-emerald-900/30 
+                         rounded-full text-sm text-emerald-700 dark:text-emerald-300
+                         backdrop-blur-sm border border-emerald-200/30 dark:border-emerald-700/30">
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-2 h-2 bg-emerald-500 rounded-full" 
+            />
+            <span>More projects coming soon</span>
+          </div>
         </motion.div>
       </div>
     </section>

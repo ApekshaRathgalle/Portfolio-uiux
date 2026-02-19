@@ -8,14 +8,14 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="relative min-h-screen bg-white dark:bg-black transition-colors duration-300">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/30 to-white dark:from-emerald-950/30 dark:to-gray-900">
-          {/* Geometric patterns */}
+        <div className="absolute inset-0 bg-white dark:bg-black">
+          {/* Pulse blobs */}
           <div className="absolute top-20 left-10 w-64 h-64 bg-emerald-100/20 dark:bg-emerald-900/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-200/10 dark:bg-emerald-800/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-          
+
           {/* Floating geometric shapes */}
           <motion.div
             className="absolute top-1/4 left-1/4 w-4 h-4 bg-emerald-500/20 dark:bg-emerald-400/20 rounded-sm"
