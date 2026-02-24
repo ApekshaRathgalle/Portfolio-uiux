@@ -9,10 +9,7 @@ import GraphicDesignProjects from './components/projects/GraphicDesignProjects';
 import VideoProjects from './components/projects/VideoProjects';
 import AnimationProjects from './components/projects/AnimationProjects';
 import UIProjectDetail from './components/projects/Details/uiProjectDetails';
-import GraphicProjectDetail from './components/projects/Details/graphicDesign';
-import VideoProjectDetail from './components/projects/Details/videoDetails';
 import AnimationProjectDetail from './components/projects/Details/animationDetails';
-import LoadingScreen from './components/LoadingScreen';
 
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
@@ -25,10 +22,6 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        {/* Loading Screen - only shows on first visit */}
-        <LoadingScreen />
-        
-        {/* Main Content - no extra margin needed */}
         <Layout>
           <AnimatePresence mode="wait">
             <Routes>
@@ -42,7 +35,7 @@ function App() {
                 } 
               />
 
-              {/* UI/UX Projects List */}
+              {/* Project Category Pages */}
               <Route 
                 path="/projects/uiux" 
                 element={
@@ -52,7 +45,6 @@ function App() {
                 } 
               />
 
-              {/* Graphic Design Projects List */}
               <Route 
                 path="/projects/graphic" 
                 element={
@@ -62,7 +54,6 @@ function App() {
                 } 
               />
 
-              {/* Video Projects List */}
               <Route 
                 path="/projects/video" 
                 element={
@@ -72,7 +63,6 @@ function App() {
                 } 
               />
 
-              {/* Animation Projects List */}
               <Route 
                 path="/projects/animation" 
                 element={
@@ -82,7 +72,7 @@ function App() {
                 } 
               />
 
-              {/* UI/UX Project Detail */}
+              {/* Project Detail Pages */}
               <Route 
                 path="/projects/uiux/:projectId" 
                 element={
@@ -92,27 +82,6 @@ function App() {
                 } 
               />
 
-              {/* Graphic Design Project Detail */}
-              <Route 
-                path="/projects/graphic/:projectId" 
-                element={
-                  <motion.div {...pageTransition}>
-                    <GraphicProjectDetail />
-                  </motion.div>
-                } 
-              />
-
-              {/* Video Project Detail */}
-              <Route 
-                path="/projects/video/:projectId" 
-                element={
-                  <motion.div {...pageTransition}>
-                    <VideoProjectDetail />
-                  </motion.div>
-                } 
-              />
-
-              {/* Animation Project Detail */}
               <Route 
                 path="/projects/animation/:projectId" 
                 element={

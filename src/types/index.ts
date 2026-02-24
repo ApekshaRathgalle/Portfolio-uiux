@@ -36,3 +36,16 @@ export interface ContactInfo {
   linkedin: string;
   github: string;
 }
+
+
+
+export interface Certificate {
+  id: string;
+  title: string;
+  issuer: string;
+  issueDate: string;
+  credentialId?: string;
+  credentialUrl?: string;
+  imageUrl?: string;
+  skills?: string[];
+}

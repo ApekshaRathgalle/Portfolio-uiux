@@ -1,30 +1,14 @@
 import { Skill, Education, ContactInfo } from '../types';
 
 export const skills: Skill[] = [
-  // Technical Skills
-  { name: 'React', level: 95, category: 'technical', icon: 'SiReact' },
-  { name: 'Angular', level: 75, category: 'technical', icon: 'SiAngular' },
-  { name: 'TypeScript', level: 90, category: 'technical', icon: 'SiTypescript' },
-  { name: 'Node.js', level: 85, category: 'technical', icon: 'SiNodedotjs' },
-  { name: 'Express.js', level: 85, category: 'technical', icon: 'SiExpress' },
-  { name: 'MongoDB', level: 85, category: 'technical', icon: 'SiMongodb' },
-  { name: 'Firebase', level: 80, category: 'technical', icon: 'SiFirebase' },
-  { name: 'Tailwind CSS', level: 90, category: 'technical', icon: 'SiTailwindcss' },
-  { name: 'Java', level: 75, category: 'technical', icon: 'FaJava' },
-  { name: 'Spring Boot', level: 70, category: 'technical', icon: 'SiSpring' },
-  { name: 'Kotlin', level: 70, category: 'technical', icon: 'SiKotlin' },
-  { name: 'Python', level: 80, category: 'technical', icon: 'SiPython' },
-  { name: 'C++', level: 70, category: 'technical', icon: 'SiCplusplus' },
-  { name: 'HTML5 & CSS3', level: 95, category: 'technical', icon: 'SiHtml5' },
-  { name: 'JavaScript', level: 90, category: 'technical', icon: 'SiJavascript' },
-  
+
   // Tools
+   { name: 'Adobe Illustrator', level: 85, category: 'tools', icon: 'SiAdobeillustrator' },
+  { name: 'Adobe Photoshop', level: 80, category: 'tools', icon: 'SiAdobephotoshop' },
   { name: 'Figma', level: 95, category: 'tools', icon: 'SiFigma' },
   { name: 'Git & GitHub', level: 90, category: 'tools', icon: 'SiGithub' },
   { name: 'Android Studio', level: 80, category: 'tools', icon: 'SiAndroidstudio' },
   { name: 'VS Code', level: 90, category: 'tools', icon: 'SiVisualstudiocode' },
-  { name: 'Adobe Illustrator', level: 85, category: 'tools', icon: 'SiAdobeillustrator' },
-  { name: 'Adobe Photoshop', level: 80, category: 'tools', icon: 'SiAdobephotoshop' },
   { name: 'Canva', level: 90, category: 'tools', icon: 'SiCanva' },
   { name: 'Postman', level: 80, category: 'tools', icon: 'SiPostman' },
   { name: 'Blender', level: 70, category: 'tools', icon: 'SiBlender' },

@@ -13,6 +13,8 @@ interface ProjectCategory {
   accent: string;
   tag: string;
   year: string;
+  bgGradient: string;
+  iconBg: string;
 }
 
 const projectCategories: ProjectCategory[] = [
@@ -25,6 +27,8 @@ const projectCategories: ProjectCategory[] = [
     accent: '#10b981',
     tag: 'Figma · Prototyping · User Research',
     year: '2024',
+    bgGradient: 'from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-cyan-950/20',
+    iconBg: 'bg-gradient-to-br from-emerald-400 to-teal-500',
   },
   {
     title: 'Video Editing',
@@ -35,6 +39,8 @@ const projectCategories: ProjectCategory[] = [
     accent: '#8b5cf6',
     tag: 'Premiere · After Effects · Color Grade',
     year: '2023',
+    bgGradient: 'from-purple-50 via-violet-50 to-fuchsia-50 dark:from-purple-950/20 dark:via-violet-950/20 dark:to-fuchsia-950/20',
+    iconBg: 'bg-gradient-to-br from-purple-500 to-violet-600',
   },
   {
     title: 'Graphic Design',
@@ -45,6 +51,8 @@ const projectCategories: ProjectCategory[] = [
     accent: '#ec4899',
     tag: 'Branding · Print · Illustration',
     year: '2023',
+    bgGradient: 'from-pink-50 via-rose-50 to-red-50 dark:from-pink-950/20 dark:via-rose-950/20 dark:to-red-950/20',
+    iconBg: 'bg-gradient-to-br from-pink-500 to-rose-600',
   },
   {
     title: 'Animation',
@@ -55,14 +63,16 @@ const projectCategories: ProjectCategory[] = [
     accent: '#f59e0b',
     tag: 'Lottie · Blender · Motion',
     year: '2024',
+    bgGradient: 'from-amber-50 via-orange-50 to-yellow-50 dark:from-amber-950/20 dark:via-orange-950/20 dark:to-yellow-950/20',
+    iconBg: 'bg-gradient-to-br from-amber-500 to-orange-600',
   },
 ];
 
 // Duplicate for seamless infinite loop
 const allCards = [...projectCategories, ...projectCategories];
 
-const CARD_WIDTH = 380;
-const CARD_GAP = 28;
+const CARD_WIDTH = 400;
+const CARD_GAP = 32;
 const SPEED = 0.6;
 
 const InfiniteTrack: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
@@ -94,82 +104,148 @@ const InfiniteTrack: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({
             <motion.div
               key={`${cat.title}-${i}`}
               onClick={() => navigate(cat.route)}
-              whileHover={{ y: -10, scale: 1.02 }}
+              whileHover={{ y: -12, scale: 1.03 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               style={{ minWidth: CARD_WIDTH }}
-              className="rounded-3xl cursor-pointer group
-                       bg-white dark:bg-gray-800
-                       border border-gray-200/50 dark:border-gray-700/50
-                       hover:border-emerald-500/30 dark:hover:border-emerald-400/30
-                       shadow-lg hover:shadow-2xl dark:shadow-gray-900/20
-                       transition-all duration-300
-                       overflow-hidden relative"
+              className="rounded-3xl cursor-pointer group relative overflow-hidden
+                       shadow-xl hover:shadow-2xl 
+                       transition-all duration-500"
             >
-              <div className="p-8 relative z-10 flex flex-col h-full">
-                {/* Animated gradient background overlay */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: `linear-gradient(135deg, ${cat.accent}15 0%, transparent 100%)`,
-                  }}
-                />
+              {/* Gradient Background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${cat.bgGradient} transition-all duration-500`} />
+              
+              {/* Animated mesh overlay */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: `radial-gradient(circle at 50% 50%, ${cat.accent}20 0%, transparent 70%)`,
+                }}
+              />
 
+              {/* Animated border glow */}
+              <motion.div
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  boxShadow: `0 0 0 1px ${cat.accent}40, 0 0 30px ${cat.accent}20`,
+                }}
+              />
+
+              {/* Floating particles effect */}
+              <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                {[...Array(6)].map((_, idx) => (
+                  <motion.div
+                    key={idx}
+                    className="absolute w-2 h-2 rounded-full"
+                    style={{ 
+                      background: cat.accent,
+                      left: `${20 + idx * 15}%`,
+                      top: `${30 + (idx % 3) * 20}%`,
+                    }}
+                    animate={{
+                      y: [-10, -30, -10],
+                      opacity: [0, 0.6, 0],
+                      scale: [0.5, 1, 0.5],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: idx * 0.3,
+                    }}
+                  />
+                ))}
+              </div>
+
+              <div className="relative z-10 p-8 flex flex-col h-full">
                 {/* Top row */}
-                <div className="relative z-10 flex items-start justify-between">
-                  {/* Icon */}
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center
-                              bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200/50 dark:border-emerald-700/50"
+                <div className="flex items-start justify-between mb-6">
+                  {/* Animated Icon */}
+                  <motion.div
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    className={`w-16 h-16 ${cat.iconBg} rounded-2xl flex items-center justify-center shadow-lg`}
                   >
-                    <Icon style={{ color: cat.accent }} className="w-6 h-6" />
-                  </div>
+                    <Icon className="w-8 h-8 text-white" />
+                  </motion.div>
 
-                  {/* Year + count */}
+                  {/* Year + count with enhanced styling */}
                   <div className="text-right">
-                    <div className="text-xs font-mono text-gray-400 dark:text-gray-500 tracking-widest">{cat.year}</div>
-                    <div
-                      className="text-5xl font-black leading-none mt-1 opacity-60"
+                    <motion.div 
+                      className="text-xs font-mono tracking-widest mb-1"
+                      style={{ color: cat.accent }}
+                    >
+                      {cat.year}
+                    </motion.div>
+                    <motion.div
+                      className="text-6xl font-black leading-none"
                       style={{
                         color: cat.accent,
                         fontFamily: '"Bebas Neue", Impact, sans-serif',
+                        textShadow: `0 2px 10px ${cat.accent}30`,
                       }}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
                     >
                       {cat.count}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Center divider line */}
-                <div className="my-6 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
-
-                {/* Title + desc */}
-                <div className="flex-1 mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
-                    {cat.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{cat.description}</p>
-                  <div className="text-xs text-gray-500 dark:text-gray-500 font-mono tracking-wide">{cat.tag}</div>
-                </div>
-
-                {/* Bottom CTA row */}
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between pt-2">
-                    <span
-                      className="text-sm font-semibold tracking-widest uppercase"
-                      style={{ color: cat.accent }}
-                    >
-                      Explore
-                    </span>
-                    <motion.div
-                      className="w-9 h-9 rounded-full flex items-center justify-center"
-                      style={{ background: cat.accent }}
-                      whileHover={{ scale: 1.15 }}
-                    >
-                      <ArrowUpRight className="w-4 h-4 text-white" />
                     </motion.div>
                   </div>
                 </div>
+
+                {/* Decorative divider */}
+                <motion.div 
+                  className="h-px mb-6 bg-gradient-to-r from-transparent via-gray-400/30 dark:via-gray-600/30 to-transparent"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                />
+
+                {/* Title + description */}
+                <div className="flex-1 mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 
+                               group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r"
+                      style={{
+                        backgroundImage: `linear-gradient(135deg, ${cat.accent} 0%, ${cat.accent}CC 100%)`,
+                      }}>
+                    {cat.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                    {cat.description}
+                  </p>
+                  <div className="text-xs text-gray-500 dark:text-gray-500 font-mono tracking-wide">
+                    {cat.tag}
+                  </div>
+                </div>
+
+                {/* CTA row with enhanced styling */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+                  <motion.span
+                    className="text-sm font-bold tracking-widest uppercase"
+                    style={{ color: cat.accent }}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Explore
+                  </motion.span>
+                  <motion.div
+                    className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${cat.accent} 0%, ${cat.accent}DD 100%)`,
+                    }}
+                    whileHover={{ scale: 1.2, rotate: 45 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ArrowUpRight className="w-5 h-5 text-white" />
+                  </motion.div>
+                </div>
               </div>
+
+              {/* Decorative corner accent */}
+              <motion.div
+                className="absolute top-0 right-0 w-32 h-32 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                style={{
+                  background: `radial-gradient(circle at top right, ${cat.accent} 0%, transparent 70%)`,
+                }}
+              />
             </motion.div>
           );
         })}
@@ -188,7 +264,7 @@ const Projects: React.FC = () => {
                  bg-white dark:bg-black
                  transition-colors duration-300"
     >
-      {/* Animated background elements - matching Skills section style */}
+      {/* Animated background elements */}
       <div className="absolute inset-0 opacity-30 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-900/20 
                        rounded-full blur-3xl animate-pulse" />
@@ -197,7 +273,7 @@ const Projects: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header - matching Skills/Contact section style */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -214,6 +290,7 @@ const Projects: React.FC = () => {
           >
             Featured <span className="text-emerald-600 dark:text-emerald-400">Projects</span>
           </motion.h2>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -235,7 +312,7 @@ const Projects: React.FC = () => {
           <InfiniteTrack navigate={navigate} />
         </motion.div>
 
-        {/* Bottom decoration - matching Skills section */}
+        {/* Bottom decoration */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

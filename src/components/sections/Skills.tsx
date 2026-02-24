@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { skills } from '../../data/skills';
+import { certificates } from '../../data/certificates';
 import * as LucideIcons from 'lucide-react';
 import * as SimpleIcons from 'react-icons/si';
 import * as FontAwesome from 'react-icons/fa';
+import { Award, ExternalLink, Calendar, CheckCircle } from 'lucide-react';
 import { useRef } from 'react';
 
 const Skills: React.FC = () => {
@@ -35,60 +37,9 @@ const Skills: React.FC = () => {
 
   // Brand color mapping for icons
   const brandColors: Record<string, string> = {
-    // Frontend Frameworks
-    'React': '#61DAFB',
-    'Vue': '#4FC08D',
-    'Angular': '#DD0031',
-    'Svelte': '#FF3E00',
-    'Next.js': '#000000',
-    'Nuxt': '#00DC82',
-    'Gatsby': '#663399',
-    
-    // CSS/Styling
-    'CSS': '#1572B6',
-    'Sass': '#CC6699',
-    'Tailwind': '#06B6D4',
-    'Bootstrap': '#7952B3',
-    'Material-UI': '#007FFF',
-    'Chakra UI': '#319795',
-    
-    // Backend/Server
-    'Node.js': '#339933',
-    'Express': '#000000',
-    'Django': '#092E20',
-    'Flask': '#000000',
-    'Spring': '#6DB33F',
-    'Laravel': '#FF2D20',
-    'Rails': '#CC0000',
-    
-    // Databases
-    'MongoDB': '#47A248',
-    'PostgreSQL': '#4169E1',
-    'MySQL': '#4479A1',
-    'Redis': '#DC382D',
-    'Firebase': '#FFCA28',
-    
-    // Languages
-    'JavaScript': '#F7DF1E',
-    'TypeScript': '#3178C6',
-    'Python': '#3776AB',
-    'Java': '#007396',
-    'C++': '#00599C',
-    'Go': '#00ADD8',
-    'Rust': '#000000',
-    'PHP': '#777BB4',
-    'Ruby': '#CC342D',
-    'Swift': '#FA7343',
-    'Kotlin': '#7F52FF',
     
     // Tools
     'Git': '#F05032',
-    'Docker': '#2496ED',
-    'Kubernetes': '#326CE5',
-    'AWS': '#FF9900',
-    'Azure': '#0089D6',
-    'Vercel': '#000000',
-    'Netlify': '#00C7B7',
     'Figma': '#F24E1E',
     'Adobe XD': '#FF61F6',
     'Sketch': '#F7B500',
@@ -299,6 +250,132 @@ const Skills: React.FC = () => {
     </motion.div>
   );
 
+  const CertificateCard: React.FC<{ cert: typeof certificates[0]; index: number }> = ({ cert, index }) => {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1 }}
+        whileHover={{ y: -5, scale: 1.02 }}
+        className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl 
+                   shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden
+                   border border-gray-200/50 dark:border-gray-700/50
+                   hover:border-emerald-500/30 dark:hover:border-emerald-400/30
+                   group cursor-pointer"
+      >
+        {/* Certificate Image (optional) */}
+        {cert.imageUrl && (
+          <div className="relative h-32 overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20">
+            <img 
+              src={cert.imageUrl} 
+              alt={cert.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        )}
+
+        <div className="p-6">
+          {/* Certificate Icon */}
+          <motion.div
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.6 }}
+            className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 
+                       rounded-xl flex items-center justify-center mb-4 shadow-lg"
+          >
+            <Award className="w-5 h-5 text-white" />
+          </motion.div>
+
+          {/* Certificate Title */}
+          <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 
+                         group-hover:text-emerald-600 dark:group-hover:text-emerald-400
+                         transition-colors duration-300 line-clamp-2">
+            {cert.title}
+          </h4>
+
+          {/* Issuer */}
+          <p className="text-gray-600 dark:text-gray-400 mb-2 font-medium text-sm">
+            {cert.issuer}
+          </p>
+
+          {/* Issue Date */}
+          <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-500 mb-3">
+            <Calendar className="w-3 h-3" />
+            <span>Issued {cert.issueDate}</span>
+          </div>
+
+          {/* Skills Tags */}
+          {cert.skills && cert.skills.length > 0 && (
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-1">
+                {cert.skills.slice(0, 3).map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-900/30 
+                             text-emerald-700 dark:text-emerald-400 text-xs font-medium 
+                             rounded-full"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* View Credential Button */}
+          {cert.credentialUrl && (
+            <motion.a
+              href={cert.credentialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center justify-center space-x-2 w-full
+                       px-3 py-2 bg-emerald-600 dark:bg-emerald-500 text-white text-sm
+                       rounded-lg hover:bg-emerald-700 dark:hover:bg-emerald-600
+                       transition-colors duration-300 font-medium"
+            >
+              <span>View Credential</span>
+              <ExternalLink className="w-3 h-3" />
+            </motion.a>
+          )}
+
+          {/* Verified Badge */}
+          <div className="flex items-center justify-center space-x-1 mt-3 text-emerald-600 dark:text-emerald-400">
+            <CheckCircle className="w-3 h-3" />
+            <span className="text-xs font-medium">Verified</span>
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
+
+  const CertificatesSection: React.FC = () => (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className="space-y-6"
+    >
+      <motion.div 
+        variants={itemVariants}
+        className="flex items-center space-x-4"
+      >
+        <h3 className="text-2xl font-bold text-gray-900 dark:text-white whitespace-nowrap">
+          Certifications & Achievements
+        </h3>
+        <div className="flex-1 h-px bg-gradient-to-r from-gray-300 dark:from-gray-700 to-transparent" />
+      </motion.div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {certificates.map((cert, index) => (
+          <CertificateCard key={cert.id} cert={cert} index={index} />
+        ))}
+      </div>
+    </motion.div>
+  );
+
   return (
     <section id="skills" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden
                  bg-white dark:bg-black
@@ -350,6 +427,9 @@ const Skills: React.FC = () => {
             title="Core Strengths"
             skills={skillCategories.soft}
           />
+
+          {/* Add Certificates Section */}
+          <CertificatesSection />
         </div>
 
         <motion.div
