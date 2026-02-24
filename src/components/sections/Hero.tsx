@@ -9,8 +9,8 @@ import resume from '../../assets/Apeksha_Rathgalle_resume.pdf'
 const Hero: React.FC = () => {
   const typewriterTexts = [
     "Hi, I'm Apeksha Rathgalle",
-    "UI/UX Designer", 
-    "Creative Problem Solver"
+    "Creative designer", 
+    "Youtuber"
   ];
 
   const scrollToProjects = () => {
