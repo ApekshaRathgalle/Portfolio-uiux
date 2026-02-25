@@ -19,8 +19,7 @@ export const videoProjects: Project[] = [
       'Implemented proxy workflow for faster editing',
     ],
     imageUrl: '',
-    // ✅ Replace with your actual Vimeo video ID: https://vimeo.com/YOUR_VIDEO_ID
-    videoUrl: 'https://vimeo.com/1168034834?share=copy&fl=sv&fe=ci',
+    videoUrl: 'https://player.vimeo.com/video/1168034834',
     category: 'video',
     featured: true,
     timeline: '2 weeks',
