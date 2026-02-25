@@ -5,6 +5,7 @@ import TypewriterAnimation from '../ui/TypewriterAnimation';
 import AnimatedButton from '../ui/AnimatedButton';
 import mep from '../../assets/mep.png'
 import resume from '../../assets/Apeksha_Rathgalle_resume.pdf'
+import { tr } from 'framer-motion/client';
 
 const Hero: React.FC = () => {
   const typewriterTexts = [
@@ -98,6 +99,7 @@ const Hero: React.FC = () => {
   variant="outline"
   size="lg"
   icon={Download}
+  disabled ={true}
   onClick={() => {
     // Create a link element and trigger download
     const link = document.createElement('a');
