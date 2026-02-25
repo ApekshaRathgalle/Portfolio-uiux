@@ -25,7 +25,7 @@ export const animationProjects: Project[] = [
       'Optimized bone structure for better performance'
     ],
     imageUrl: g9,
-    videoUrl: 'https://player.vimeo.com/video/1168034834', // Replace with your Vimeo video ID
+    videoUrl: 'https://player.vimeo.com/video/1168064617',
     category: 'animation',
     featured: true,
     timeline: '3 weeks'

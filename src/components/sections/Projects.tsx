@@ -1,8 +1,8 @@
 import React from 'react';
-import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
+import { motion, useAnimationFrame, useMotionValue, animate } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Palette, Video, Zap, Sparkles, ArrowUpRight } from 'lucide-react';
-import { useRef } from 'react';
+import { Palette, Video, Sparkles, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 interface ProjectCategory {
   title: string;
@@ -18,7 +18,7 @@ interface ProjectCategory {
 }
 
 const projectCategories: ProjectCategory[] = [
-    {
+  {
     title: 'Video Editing',
     description: 'Professional video production and editing',
     icon: Video,
@@ -42,7 +42,6 @@ const projectCategories: ProjectCategory[] = [
     bgGradient: 'from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-cyan-950/20',
     iconBg: 'bg-gradient-to-br from-emerald-400 to-teal-500',
   },
-
   {
     title: 'Graphic Design',
     description: 'Visual identity and marketing design projects',
@@ -68,178 +67,248 @@ const SPEED = 0.6;
 const InfiniteTrack: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({ navigate }) => {
   const x = useMotionValue(0);
   const isPaused = useRef(false);
+  const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true);
 
   const totalWidth = (CARD_WIDTH + CARD_GAP) * projectCategories.length;
 
   useAnimationFrame(() => {
-    if (isPaused.current) return;
+    if (isPaused.current || !isAutoScrollEnabled) return;
     const current = x.get();
     const next = current - SPEED;
     x.set(next <= -totalWidth ? 0 : next);
   });
 
+  const scrollToNext = () => {
+    setIsAutoScrollEnabled(false);
+    const current = x.get();
+    const targetX = current - (CARD_WIDTH + CARD_GAP);
+    animate(x, targetX, { 
+      type: "spring", 
+      stiffness: 300, 
+      damping: 30,
+      onComplete: () => {
+        setTimeout(() => setIsAutoScrollEnabled(true), 1000);
+      }
+    });
+  };
+
+  const scrollToPrev = () => {
+    setIsAutoScrollEnabled(false);
+    const current = x.get();
+    const targetX = current + (CARD_WIDTH + CARD_GAP);
+    animate(x, targetX, { 
+      type: "spring", 
+      stiffness: 300, 
+      damping: 30,
+      onComplete: () => {
+        setTimeout(() => setIsAutoScrollEnabled(true), 1000);
+      }
+    });
+  };
+
   return (
-    <div
-      className="relative overflow-hidden"
-      style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)' }}
-    >
-      <motion.div
-        style={{ x, display: 'flex', gap: CARD_GAP, willChange: 'transform' }}
-        onMouseEnter={() => (isPaused.current = true)}
-        onMouseLeave={() => (isPaused.current = false)}
+    <div className="relative">
+      {/* Previous Button */}
+      <motion.button
+        onClick={scrollToPrev}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 
+                   w-12 h-12 bg-white dark:bg-gray-800 rounded-full 
+                   shadow-xl hover:shadow-2xl flex items-center justify-center 
+                   transition-all duration-300 
+                   border border-gray-200 dark:border-gray-700 
+                   group backdrop-blur-sm"
+        aria-label="Previous project"
       >
-        {allCards.map((cat, i) => {
-          const Icon = cat.icon;
-          return (
-            <motion.div
-              key={`${cat.title}-${i}`}
-              onClick={() => navigate(cat.route)}
-              whileHover={{ y: -12, scale: 1.03 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              style={{ minWidth: CARD_WIDTH }}
-              className="rounded-3xl cursor-pointer group relative overflow-hidden
-                       shadow-xl hover:shadow-2xl 
-                       transition-all duration-500"
-            >
-              {/* Gradient Background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${cat.bgGradient} transition-all duration-500`} />
-              
-              {/* Animated mesh overlay */}
+        <ChevronLeft className="w-6 h-6 text-gray-700 dark:text-gray-300 
+                               group-hover:text-emerald-600 dark:group-hover:text-emerald-400 
+                               transition-colors" />
+      </motion.button>
+
+      {/* Next Button */}
+      <motion.button
+        onClick={scrollToNext}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 
+                   w-12 h-12 bg-white dark:bg-gray-800 rounded-full 
+                   shadow-xl hover:shadow-2xl flex items-center justify-center 
+                   transition-all duration-300 
+                   border border-gray-200 dark:border-gray-700 
+                   group backdrop-blur-sm"
+        aria-label="Next project"
+      >
+        <ChevronRight className="w-6 h-6 text-gray-700 dark:text-gray-300 
+                                group-hover:text-emerald-600 dark:group-hover:text-emerald-400 
+                                transition-colors" />
+      </motion.button>
+
+      {/* Scrolling Track */}
+      <div
+        className="relative overflow-hidden"
+        style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)' }}
+      >
+        <motion.div
+          style={{ x, display: 'flex', gap: CARD_GAP, willChange: 'transform' }}
+          onMouseEnter={() => (isPaused.current = true)}
+          onMouseLeave={() => (isPaused.current = false)}
+        >
+          {allCards.map((cat, i) => {
+            const Icon = cat.icon;
+            return (
               <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `radial-gradient(circle at 50% 50%, ${cat.accent}20 0%, transparent 70%)`,
-                }}
-              />
-
-              {/* Animated border glow */}
-              <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  boxShadow: `0 0 0 1px ${cat.accent}40, 0 0 30px ${cat.accent}20`,
-                }}
-              />
-
-              {/* Floating particles effect */}
-              <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                {[...Array(6)].map((_, idx) => (
-                  <motion.div
-                    key={idx}
-                    className="absolute w-2 h-2 rounded-full"
-                    style={{ 
-                      background: cat.accent,
-                      left: `${20 + idx * 15}%`,
-                      top: `${30 + (idx % 3) * 20}%`,
-                    }}
-                    animate={{
-                      y: [-10, -30, -10],
-                      opacity: [0, 0.6, 0],
-                      scale: [0.5, 1, 0.5],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: idx * 0.3,
-                    }}
-                  />
-                ))}
-              </div>
-
-              <div className="relative z-10 p-8 flex flex-col h-full">
-                {/* Top row */}
-                <div className="flex items-start justify-between mb-6">
-                  {/* Animated Icon */}
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                    className={`w-16 h-16 ${cat.iconBg} rounded-2xl flex items-center justify-center shadow-lg`}
-                  >
-                    <Icon className="w-8 h-8 text-white" />
-                  </motion.div>
-
-                  {/* Year + count with enhanced styling */}
-                  <div className="text-right">
-                    <motion.div 
-                      className="text-xs font-mono tracking-widest mb-1"
-                      style={{ color: cat.accent }}
-                    >
-                      {cat.year}
-                    </motion.div>
-                    <motion.div
-                      className="text-6xl font-black leading-none"
-                      style={{
-                        color: cat.accent,
-                        fontFamily: '"Bebas Neue", Impact, sans-serif',
-                        textShadow: `0 2px 10px ${cat.accent}30`,
-                      }}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {cat.count}
-                    </motion.div>
-                  </div>
-                </div>
-
-                {/* Decorative divider */}
-                <motion.div 
-                  className="h-px mb-6 bg-gradient-to-r from-transparent via-gray-400/30 dark:via-gray-600/30 to-transparent"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
+                key={`${cat.title}-${i}`}
+                onClick={() => navigate(cat.route)}
+                whileHover={{ y: -12, scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                style={{ minWidth: CARD_WIDTH }}
+                className="rounded-3xl cursor-pointer group relative overflow-hidden
+                         shadow-xl hover:shadow-2xl 
+                         transition-all duration-500"
+              >
+                {/* Gradient Background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${cat.bgGradient} transition-all duration-500`} />
+                
+                {/* Animated mesh overlay */}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(circle at 50% 50%, ${cat.accent}20 0%, transparent 70%)`,
+                  }}
                 />
 
-                {/* Title + description */}
-                <div className="flex-1 mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 
-                               group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r"
-                      style={{
-                        backgroundImage: `linear-gradient(135deg, ${cat.accent} 0%, ${cat.accent}CC 100%)`,
-                      }}>
-                    {cat.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                    {cat.description}
-                  </p>
-                  <div className="text-xs text-gray-500 dark:text-gray-500 font-mono tracking-wide">
-                    {cat.tag}
+                {/* Animated border glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    boxShadow: `0 0 0 1px ${cat.accent}40, 0 0 30px ${cat.accent}20`,
+                  }}
+                />
+
+                {/* Floating particles effect */}
+                <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  {[...Array(6)].map((_, idx) => (
+                    <motion.div
+                      key={idx}
+                      className="absolute w-2 h-2 rounded-full"
+                      style={{ 
+                        background: cat.accent,
+                        left: `${20 + idx * 15}%`,
+                        top: `${30 + (idx % 3) * 20}%`,
+                      }}
+                      animate={{
+                        y: [-10, -30, -10],
+                        opacity: [0, 0.6, 0],
+                        scale: [0.5, 1, 0.5],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        delay: idx * 0.3,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                <div className="relative z-10 p-8 flex flex-col h-full">
+                  {/* Top row */}
+                  <div className="flex items-start justify-between mb-6">
+                    {/* Animated Icon */}
+                    <motion.div
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-16 h-16 ${cat.iconBg} rounded-2xl flex items-center justify-center shadow-lg`}
+                    >
+                      <Icon className="w-8 h-8 text-white" />
+                    </motion.div>
+
+                    {/* Year + count with enhanced styling */}
+                    <div className="text-right">
+                      <motion.div 
+                        className="text-xs font-mono tracking-widest mb-1"
+                        style={{ color: cat.accent }}
+                      >
+                        {cat.year}
+                      </motion.div>
+                      <motion.div
+                        className="text-6xl font-black leading-none"
+                        style={{
+                          color: cat.accent,
+                          fontFamily: '"Bebas Neue", Impact, sans-serif',
+                          textShadow: `0 2px 10px ${cat.accent}30`,
+                        }}
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {cat.count}
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* Decorative divider */}
+                  <motion.div 
+                    className="h-px mb-6 bg-gradient-to-r from-transparent via-gray-400/30 dark:via-gray-600/30 to-transparent"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                  />
+
+                  {/* Title + description */}
+                  <div className="flex-1 mb-6">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 
+                                 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r"
+                        style={{
+                          backgroundImage: `linear-gradient(135deg, ${cat.accent} 0%, ${cat.accent}CC 100%)`,
+                        }}>
+                      {cat.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                      {cat.description}
+                    </p>
+                    <div className="text-xs text-gray-500 dark:text-gray-500 font-mono tracking-wide">
+                      {cat.tag}
+                    </div>
+                  </div>
+
+                  {/* CTA row with enhanced styling */}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+                    <motion.span
+                      className="text-sm font-bold tracking-widest uppercase"
+                      style={{ color: cat.accent }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      Explore
+                    </motion.span>
+                    <motion.div
+                      className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
+                      style={{ 
+                        background: `linear-gradient(135deg, ${cat.accent} 0%, ${cat.accent}DD 100%)`,
+                      }}
+                      whileHover={{ scale: 1.2, rotate: 45 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ArrowUpRight className="w-5 h-5 text-white" />
+                    </motion.div>
                   </div>
                 </div>
 
-                {/* CTA row with enhanced styling */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-                  <motion.span
-                    className="text-sm font-bold tracking-widest uppercase"
-                    style={{ color: cat.accent }}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    Explore
-                  </motion.span>
-                  <motion.div
-                    className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${cat.accent} 0%, ${cat.accent}DD 100%)`,
-                    }}
-                    whileHover={{ scale: 1.2, rotate: 45 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ArrowUpRight className="w-5 h-5 text-white" />
-                  </motion.div>
-                </div>
-              </div>
+                {/* Decorative corner accent */}
+                <motion.div
+                  className="absolute top-0 right-0 w-32 h-32 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(circle at top right, ${cat.accent} 0%, transparent 70%)`,
+                  }}
+                />
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
 
-              {/* Decorative corner accent */}
-              <motion.div
-                className="absolute top-0 right-0 w-32 h-32 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
-                style={{
-                  background: `radial-gradient(circle at top right, ${cat.accent} 0%, transparent 70%)`,
-                }}
-              />
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      {/* REMOVED: Auto-scroll Indicator section */}
     </div>
   );
 };
@@ -302,26 +371,7 @@ const Projects: React.FC = () => {
           <InfiniteTrack navigate={navigate} />
         </motion.div>
 
-        {/* Bottom decoration */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center space-x-2 px-4 py-2 
-                         bg-emerald-100 dark:bg-emerald-900/30 
-                         rounded-full text-sm text-emerald-700 dark:text-emerald-300
-                         backdrop-blur-sm border border-emerald-200/30 dark:border-emerald-700/30">
-            <motion.div 
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-2 h-2 bg-emerald-500 rounded-full" 
-            />
-            <span>More projects coming soon</span>
-          </div>
-        </motion.div>
+        {/* REMOVED: Bottom decoration "More projects coming soon" section */}
       </div>
     </section>
   );
