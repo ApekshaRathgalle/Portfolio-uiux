@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Eye, Zap, Sparkles, ArrowUpRight } from 'lucide-react';
 import { animationProjects } from '../../data/AnimationProjects';
@@ -111,10 +111,26 @@ const ProjectCard = ({ project, index, isHovered, onHover, onClick }: {
   onHover: (id: string | null) => void;
   onClick: () => void;
 }) => {
+  const [playing, setPlaying] = useState(false);
+
+  // Determine media type
+  const hasVimeo = !!project.vimeoUrl;
+  const hasLocalImage = !!project.imageUrl;
+  const hasVideo = hasVimeo;
+
+  // Build embed URL for Vimeo
+  const embedUrl = hasVimeo
+    ? `${project.vimeoUrl}?autoplay=${playing ? 1 : 0}&title=0&byline=0&portrait=0&badge=0`
+    : '';
+
   return (
     <motion.div
-      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700"
-      onClick={onClick}
+     className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700"
+      onClick={(e) => {
+        // Prevent navigation - just do nothing or add a toast notification
+        e.preventDefault();
+        console.log('Animation details coming soon!');
+      }}
       onMouseEnter={() => onHover(project.id)}
       onMouseLeave={() => onHover(null)}
       whileHover={{ y: -10 }}
@@ -130,79 +146,114 @@ const ProjectCard = ({ project, index, isHovered, onHover, onClick }: {
         className="absolute inset-0 opacity-20 -z-10 blur-xl"
       />
 
-      {/* Image */}
+      {/* Media Container */}
       <div className="relative h-80 overflow-hidden bg-gradient-to-br from-amber-500/10 to-orange-500/10 dark:from-amber-900/20 dark:to-orange-900/20">
-        <motion.img
-          src={project.imageUrl}
-          alt={project.title}
-          className="w-full h-full object-cover"
-          animate={{ scale: isHovered ? 1.15 : 1, rotate: isHovered ? 2 : 0 }}
-          transition={{ duration: 0.5 }}
-        />
-
-        {/* Sparkle Effect */}
-        <motion.div
-          animate={{
-            opacity: [0, 1, 0],
-            scale: [0.8, 1.2, 0.8],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: index * 0.3,
-          }}
-          className="absolute top-4 right-4"
-        >
-          <Sparkles className="w-6 h-6 text-amber-400" />
-        </motion.div>
-
-        {/* Play Button Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <motion.div
-            whileHover={{ scale: 1.2 }}
-            className="w-16 h-16 bg-gradient-to-br from-amber-600 to-orange-600 rounded-full flex items-center justify-center shadow-2xl"
+        {hasVimeo && playing ? (
+          // Vimeo iframe when playing
+          <iframe
+            src={embedUrl}
+            className="absolute inset-0 w-full h-full"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            title={project.title}
+          />
+        ) : hasVimeo && !playing ? (
+          // Vimeo thumbnail with play button
+          <div
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setPlaying(true);
+            }}
           >
-            <Play className="w-8 h-8 text-white ml-1" fill="white" />
-          </motion.div>
-        </div>
+            {/* Vimeo Badge */}
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-[#1ab7ea]/90 rounded-full">
+              <svg className="w-3.5 h-3.5 text-white fill-white" viewBox="0 0 24 24">
+                <path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197c1.185-1.044 2.351-2.084 3.501-3.128C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.493 4.797l-.013.01z"/>
+              </svg>
+              <span className="text-white text-xs font-bold">Vimeo</span>
+            </div>
 
-        {/* Featured Badge */}
-        {project.featured && (
-          <div className="absolute top-4 left-4">
-            <span className="px-3 py-1 bg-amber-500 text-white text-xs font-bold font-mono tracking-wider uppercase rounded-full shadow-lg">
-              Featured
-            </span>
+            {/* Background gradient */}
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.05) 40px, rgba(255,255,255,0.05) 42px)' }} />
+
+            {/* Play button */}
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative z-10 w-20 h-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-white/30 transition-all duration-300 shadow-2xl"
+            >
+              <Play className="w-8 h-8 text-white fill-white ml-1" />
+            </motion.div>
+
+            {/* Title overlay */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+              <p className="text-white font-semibold text-sm truncate">{project.title}</p>
+            </div>
+          </div>
+        ) : hasLocalImage ? (
+          // Local image
+          <motion.img
+            src={project.imageUrl}
+            alt={project.title}
+            className="w-full h-full object-cover"
+            animate={{ scale: isHovered ? 1.15 : 1, rotate: isHovered ? 2 : 0 }}
+            transition={{ duration: 0.5 }}
+          />
+        ) : (
+          // Placeholder
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30">
+            <Sparkles className="w-16 h-16 text-amber-500 dark:text-amber-400 opacity-30" />
           </div>
         )}
 
-        {/* Timeline badge */}
-        <div className="absolute bottom-4 right-4">
-          <span className="px-3 py-1 bg-black/70 text-white text-xs font-bold font-mono tracking-wider uppercase rounded-lg backdrop-blur-sm">
-            {project.timeline}
-          </span>
-        </div>
+        {/* Sparkle Effect for images */}
+        {!hasVimeo && (
+          <motion.div
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 1,
+            }}
+            className="absolute top-4 right-4 pointer-events-none"
+          >
+            <Sparkles className="w-6 h-6 text-amber-400" />
+          </motion.div>
+        )}
+
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
-      {/* Project info */}
-      <div className="p-6">
-        <div className="flex flex-wrap gap-2 mb-3">
-          {project.features?.slice(0, 2).map((feature: string) => (
-            <span
-              key={feature}
-              className="text-xs text-amber-600 dark:text-amber-400 font-mono font-bold tracking-wider uppercase"
-            >
-              {feature}
+      {/* Content */}
+      <div className="p-6 space-y-4">
+        <div className="flex items-start justify-between">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2">
+            {project.title}
+          </h3>
+          {project.timeline && (
+            <span className="ml-3 shrink-0 text-xs font-mono text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+              {project.timeline}
             </span>
-          ))}
+          )}
         </div>
-        
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-          {project.title}
-        </h3>
-        
+
         <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 mb-4 font-light">
           {project.description}
         </p>
+
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.slice(0, 3).map((tech: string) => (
+            <span key={tech} className="text-xs text-amber-600 dark:text-amber-400 font-mono font-bold tracking-wider uppercase">
+              {tech}
+            </span>
+          ))}
+        </div>
 
         {/* View Details */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">

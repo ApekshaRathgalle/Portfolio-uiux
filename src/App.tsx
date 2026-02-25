@@ -9,7 +9,6 @@ import GraphicDesignProjects from './components/projects/GraphicDesignProjects';
 import VideoProjects from './components/projects/VideoProjects';
 import AnimationProjects from './components/projects/AnimationProjects';
 import UIProjectDetail from './components/projects/Details/uiProjectDetails';
-import AnimationProjectDetail from './components/projects/Details/animationDetails';
 
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
@@ -78,15 +77,6 @@ function App() {
                 element={
                   <motion.div {...pageTransition}>
                     <UIProjectDetail />
-                  </motion.div>
-                } 
-              />
-
-              <Route 
-                path="/projects/animation/:projectId" 
-                element={
-                  <motion.div {...pageTransition}>
-                    <AnimationProjectDetail />
                   </motion.div>
                 } 
               />
