@@ -10,7 +10,8 @@ const Hero: React.FC = () => {
   const typewriterTexts = [
     "Hi, I'm Apeksha Rathgalle",
     "Creative designer", 
-    "Youtuber"
+    "Youtuber",
+    
   ];
 
   const scrollToProjects = () => {

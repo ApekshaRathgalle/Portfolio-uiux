@@ -18,19 +18,7 @@ interface ProjectCategory {
 }
 
 const projectCategories: ProjectCategory[] = [
-  {
-    title: 'UI/UX Design',
-    description: 'User-centered design for web and mobile',
-    icon: Sparkles,
-    route: '/projects/uiux',
-    count: '05',
-    accent: '#10b981',
-    tag: 'Figma · Prototyping · User Research',
-    year: '2024',
-    bgGradient: 'from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-cyan-950/20',
-    iconBg: 'bg-gradient-to-br from-emerald-400 to-teal-500',
-  },
-  {
+    {
     title: 'Video Editing',
     description: 'Professional video production and editing',
     icon: Video,
@@ -43,6 +31,19 @@ const projectCategories: ProjectCategory[] = [
     iconBg: 'bg-gradient-to-br from-purple-500 to-violet-600',
   },
   {
+    title: 'UI/UX Design',
+    description: 'User-centered design for web and mobile',
+    icon: Sparkles,
+    route: '/projects/uiux',
+    count: '05',
+    accent: '#10b981',
+    tag: 'Figma · Prototyping · User Research',
+    year: '2024',
+    bgGradient: 'from-emerald-50 via-teal-50 to-cyan-50 dark:from-emerald-950/20 dark:via-teal-950/20 dark:to-cyan-950/20',
+    iconBg: 'bg-gradient-to-br from-emerald-400 to-teal-500',
+  },
+
+  {
     title: 'Graphic Design',
     description: 'Visual identity and marketing design projects',
     icon: Palette,
@@ -54,18 +55,7 @@ const projectCategories: ProjectCategory[] = [
     bgGradient: 'from-pink-50 via-rose-50 to-red-50 dark:from-pink-950/20 dark:via-rose-950/20 dark:to-red-950/20',
     iconBg: 'bg-gradient-to-br from-pink-500 to-rose-600',
   },
-  {
-    title: 'Animation',
-    description: '2D/3D animation and motion graphics',
-    icon: Zap,
-    route: '/projects/animation',
-    count: '03',
-    accent: '#f59e0b',
-    tag: 'Lottie · Blender · Motion',
-    year: '2024',
-    bgGradient: 'from-amber-50 via-orange-50 to-yellow-50 dark:from-amber-950/20 dark:via-orange-950/20 dark:to-yellow-950/20',
-    iconBg: 'bg-gradient-to-br from-amber-500 to-orange-600',
-  },
+  
 ];
 
 // Duplicate for seamless infinite loop
