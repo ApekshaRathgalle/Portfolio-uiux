@@ -12,6 +12,7 @@ import logo_coffee from '../assets/logo_coffee.png';
 import logo2 from '../assets/logo2.png';
 import p1 from '../assets/p1.png';
 import pizza from '../assets/pizza.png';
+import cofee_post from '../assets/cofee_post.png';
 
 export const graphicProjects: Project[] = [
   {
@@ -135,7 +136,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: g8,
+    imageUrl: cofee_post,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -205,6 +206,20 @@ export const graphicProjects: Project[] = [
     challenges: [],
     solutions: [],
     imageUrl: g5,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
+  },
+  {
+    id: 'graphic-14',
+    title: 'Design 14',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: g8,
     category: 'graphic',
     featured: false,
     timeline: ''
