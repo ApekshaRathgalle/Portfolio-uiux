@@ -56,6 +56,19 @@ const projectCategories: ProjectCategory[] = [
     iconGradient: 'linear-gradient(135deg, #e11d48 0%, #fb7185 100%)',
     borderColor: 'rgba(251,113,133,0.25)',
     tag: 'Branding · Print · Illustration',
+    year: '2024',
+  },
+  {
+    title: 'Animation',
+    description: 'Motion graphics and animated content',
+    icon: Video,
+    route: '/projects/animation',
+    count: '08',
+    accent: '#f59e0b',
+    accentDark: '#d97706',
+    iconGradient: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)',
+    borderColor: 'rgba(245,158,11,0.25)',
+    tag: 'After Effects · Motion Design · 3D',
     year: '2023',
   },
 ];
@@ -82,28 +95,18 @@ const ProjectCard: React.FC<{ cat: typeof projectCategories[0]; onClick: () => v
     >
       {/* Card shell */}
       <div
-        style={{
-          borderRadius: '24px',
-          border: `1px solid ${hovered ? cat.borderColor : 'rgba(255,255,255,0.07)'}`,
-          background: hovered
-            ? 'rgba(255,255,255,0.06)'
-            : 'rgba(255,255,255,0.03)',
-          backdropFilter: 'blur(20px)',
-          transition: 'background 0.4s ease, border-color 0.4s ease',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
+        className="rounded-3xl border backdrop-blur-xl transition-all duration-400 overflow-hidden relative
+                   border-gray-200/50 dark:border-white/[0.07]
+                   bg-white/80 dark:bg-white/[0.03]
+                   hover:border-gray-300/70 dark:hover:border-white/[0.15]
+                   hover:bg-white/90 dark:hover:bg-white/[0.06]"
       >
         {/* Subtle top glow on hover */}
         <motion.div
           animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.4 }}
+          className="absolute top-0 left-[10%] right-[10%] h-px"
           style={{
-            position: 'absolute',
-            top: 0,
-            left: '10%',
-            right: '10%',
-            height: '1px',
             background: `linear-gradient(90deg, transparent, ${cat.accent}, transparent)`,
           }}
         />
@@ -112,145 +115,86 @@ const ProjectCard: React.FC<{ cat: typeof projectCategories[0]; onClick: () => v
         <motion.div
           animate={{ opacity: hovered ? 0.15 : 0.05 }}
           transition={{ duration: 0.5 }}
+          className="absolute -top-15 -right-15 w-50 h-50 rounded-full blur-3xl pointer-events-none"
           style={{
-            position: 'absolute',
-            top: -60,
-            right: -60,
-            width: 200,
-            height: 200,
-            borderRadius: '50%',
             background: cat.accent,
-            filter: 'blur(60px)',
-            pointerEvents: 'none',
           }}
         />
 
-        <div style={{ padding: '32px', position: 'relative', zIndex: 1 }}>
+        <div className="p-8 relative z-10">
           {/* Top row */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '28px' }}>
+          <div className="flex items-start justify-between mb-7">
             {/* Icon */}
             <motion.div
               whileHover={{ rotate: 8, scale: 1.08 }}
+              className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg"
               style={{
-                width: 56,
-                height: 56,
-                borderRadius: '16px',
                 background: cat.iconGradient,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 boxShadow: `0 8px 24px ${cat.accentDark}50`,
-                flexShrink: 0,
               }}
             >
-              <Icon style={{ width: 26, height: 26, color: '#fff' }} />
+              <Icon className="w-6.5 h-6.5 text-white" />
             </motion.div>
 
             {/* Year + count */}
-            <div style={{ textAlign: 'right' }}>
-              <div style={{
-                fontFamily: 'monospace',
-                fontSize: '11px',
-                letterSpacing: '0.15em',
-                color: cat.accent,
-                marginBottom: '4px',
-                opacity: 0.8,
-              }}>
+            <div className="text-right">
+              <div className="font-mono text-[11px] tracking-[0.15em] mb-1 opacity-80"
+                   style={{ color: cat.accent }}>
                 {cat.year}
               </div>
-              <div style={{
-                fontSize: '64px',
-                fontWeight: 900,
-                lineHeight: 1,
-                color: 'transparent',
-                WebkitTextStroke: `1.5px ${cat.accent}`,
-                fontFamily: '"Bebas Neue", Impact, sans-serif',
-                opacity: hovered ? 1 : 0.5,
-                transition: 'opacity 0.4s ease',
-              }}>
+              <div className="text-[64px] font-black leading-none font-['Bebas_Neue',Impact,sans-serif]
+                            opacity-50 group-hover:opacity-100 transition-opacity duration-400"
+                   style={{
+                     color: 'transparent',
+                     WebkitTextStroke: `1.5px ${cat.accent}`,
+                   }}>
                 {cat.count}
               </div>
             </div>
           </div>
 
           {/* Divider */}
-          <div style={{
-            height: '1px',
-            background: 'rgba(255,255,255,0.07)',
-            marginBottom: '24px',
-          }} />
+          <div className="h-px bg-gray-200/70 dark:bg-white/[0.07] mb-6" />
 
           {/* Title */}
-          <h3 style={{
-            fontSize: '26px',
-            fontWeight: 700,
-            color: '#f1f5f9',
-            marginBottom: '10px',
-            letterSpacing: '-0.02em',
-            fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
-            lineHeight: 1.2,
-          }}>
+          <h3 className="text-[26px] font-bold mb-2.5 leading-tight tracking-tight
+                        text-gray-900 dark:text-gray-100
+                        font-['DM_Sans','Helvetica_Neue',sans-serif]">
             {cat.title}
           </h3>
 
           {/* Description */}
-          <p style={{
-            fontSize: '14px',
-            color: 'rgba(255,255,255,0.45)',
-            lineHeight: 1.6,
-            marginBottom: '16px',
-          }}>
+          <p className="text-sm leading-relaxed mb-4
+                       text-gray-600 dark:text-white/45">
             {cat.description}
           </p>
 
           {/* Tags */}
-          <div style={{
-            fontSize: '11px',
-            fontFamily: 'monospace',
-            letterSpacing: '0.08em',
-            color: 'rgba(255,255,255,0.3)',
-            marginBottom: '28px',
-          }}>
+          <div className="text-[11px] font-mono tracking-[0.08em] mb-7 uppercase
+                         text-gray-500 dark:text-white/30">
             {cat.tag}
           </div>
 
           {/* CTA */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingTop: '20px',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
-          }}>
+          <div className="flex items-center justify-between pt-5 border-t border-gray-200/70 dark:border-white/[0.06]">
             <motion.span
               animate={{ x: hovered ? 4 : 0 }}
               transition={{ duration: 0.2 }}
-              style={{
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                color: cat.accent,
-                fontFamily: 'monospace',
-              }}
+              className="text-xs font-bold tracking-[0.15em] uppercase font-mono"
+              style={{ color: cat.accent }}
             >
               Explore
             </motion.span>
 
             <motion.div
               whileHover={{ scale: 1.15, rotate: 45 }}
+              className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
                 background: cat.iconGradient,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 boxShadow: `0 4px 16px ${cat.accentDark}60`,
               }}
             >
-              <ArrowUpRight style={{ width: 18, height: 18, color: '#fff' }} />
+              <ArrowUpRight className="w-[18px] h-[18px] text-white" />
             </motion.div>
           </div>
         </div>
@@ -276,47 +220,36 @@ const InfiniteTrack: React.FC<{ navigate: ReturnType<typeof useNavigate> }> = ({
   const scrollToNext = () => {
     setIsAutoScrollEnabled(false);
     const current = x.get();
-    animate(x, current - (CARD_WIDTH + CARD_GAP), {
-      type: 'spring', stiffness: 300, damping: 30,
-      onComplete: () => setTimeout(() => setIsAutoScrollEnabled(true), 1000),
-    });
+    const target = current - (CARD_WIDTH + CARD_GAP);
+    animate(x, target, { duration: 0.5 }).then(() => setIsAutoScrollEnabled(true));
   };
 
   const scrollToPrev = () => {
     setIsAutoScrollEnabled(false);
     const current = x.get();
-    animate(x, current + (CARD_WIDTH + CARD_GAP), {
-      type: 'spring', stiffness: 300, damping: 30,
-      onComplete: () => setTimeout(() => setIsAutoScrollEnabled(true), 1000),
-    });
+    const target = current + (CARD_WIDTH + CARD_GAP);
+    animate(x, target, { duration: 0.5 }).then(() => setIsAutoScrollEnabled(true));
   };
 
   return (
     <div className="relative">
-      {/* Nav buttons */}
-      {[{ dir: 'prev', fn: scrollToPrev, Icon: ChevronLeft, pos: 'left-4' },
-        { dir: 'next', fn: scrollToNext, Icon: ChevronRight, pos: 'right-4' }].map(({ dir, fn, Icon, pos }) => (
+      {/* Navigation buttons */}
+      {[
+        { dir: 'prev', fn: scrollToPrev, Icon: ChevronLeft, pos: 'left-4' },
+        { dir: 'next', fn: scrollToNext, Icon: ChevronRight, pos: 'right-4' }
+      ].map(({ dir, fn, Icon, pos }) => (
         <motion.button
           key={dir}
           onClick={fn}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className={`absolute ${pos} top-1/2 -translate-y-1/2 z-20`}
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: '50%',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            backdropFilter: 'blur(12px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
+          className={`absolute ${pos} top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center cursor-pointer
+                     bg-white/60 dark:bg-white/[0.06]
+                     border border-gray-300/50 dark:border-white/[0.12]
+                     backdrop-blur-xl`}
           aria-label={`${dir} project`}
         >
-          <Icon style={{ width: 20, height: 20, color: 'rgba(255,255,255,0.7)' }} />
+          <Icon className="w-5 h-5 text-gray-700 dark:text-white/70" />
         </motion.button>
       ))}
 
@@ -351,48 +284,48 @@ const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      style={{
-        position: 'relative',
-        padding: '100px 24px',
-        overflow: 'hidden',
-        background: '#080c10',
-      }}
+      className="relative py-24 px-6 overflow-hidden transition-colors duration-300
+                bg-gradient-to-br from-gray-50 via-white to-gray-100
+                dark:from-[#080c10] dark:via-[#080c10] dark:to-[#0a0e12]"
     >
       {/* Background ambient blobs */}
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute', top: '10%', left: '-5%',
-          width: 500, height: 500,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '5%', right: '-5%',
-          width: 600, height: 600,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(5,150,105,0.07) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }} />
-        {/* Subtle grid */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }} />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[40px]
+                       bg-gradient-to-r from-purple-200/20 to-transparent
+                       dark:from-purple-500/8 dark:to-transparent" />
+        <div className="absolute bottom-[5%] right-[-5%] w-[600px] h-[600px] rounded-full blur-[40px]
+                       bg-gradient-to-r from-emerald-200/20 to-transparent
+                       dark:from-emerald-500/7 dark:to-transparent" />
       </div>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      {/* Subtle grid */}
+      <div className="absolute inset-0"
+           style={{
+             backgroundImage: `
+               linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px)
+             `,
+             backgroundSize: '60px 60px',
+           }}
+      />
+      <div className="absolute inset-0 dark:block hidden"
+           style={{
+             backgroundImage: `
+               linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+             `,
+             backgroundSize: '60px 60px',
+           }}
+      />
+
+      <div className="max-w-[1200px] mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          style={{ textAlign: 'center', marginBottom: '64px' }}
+          className="text-center mb-16"
         >
           {/* Eyebrow */}
           <motion.div
@@ -400,19 +333,12 @@ const Projects: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.05, duration: 0.5 }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 16px',
-              borderRadius: '999px',
-              border: '1px solid rgba(52,211,153,0.25)',
-              background: 'rgba(52,211,153,0.06)',
-              marginBottom: '20px',
-            }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5
+                      border border-emerald-400/25 dark:border-emerald-400/25
+                      bg-emerald-50/50 dark:bg-emerald-400/[0.06]"
           >
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#34d399' }} />
-            <span style={{ fontSize: '12px', fontFamily: 'monospace', letterSpacing: '0.1em', color: '#34d399' }}>
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+            <span className="text-xs font-mono tracking-[0.1em] text-emerald-700 dark:text-emerald-400">
               SELECTED WORK
             </span>
           </motion.div>
@@ -422,22 +348,12 @@ const Projects: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            style={{
-              fontSize: 'clamp(36px, 5vw, 56px)',
-              fontWeight: 800,
-              color: '#f1f5f9',
-              marginBottom: '16px',
-              letterSpacing: '-0.03em',
-              lineHeight: 1.1,
-              fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
-            }}
+            className="text-[clamp(36px,5vw,56px)] font-extrabold mb-4 leading-tight tracking-tight
+                      text-gray-900 dark:text-gray-100
+                      font-['DM_Sans','Helvetica_Neue',sans-serif]"
           >
             Featured{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #34d399, #a78bfa)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
+            <span className="bg-gradient-to-r from-emerald-500 to-purple-500 dark:from-emerald-400 dark:to-purple-400 bg-clip-text text-transparent">
               Projects
             </span>
           </motion.h2>
@@ -447,13 +363,8 @@ const Projects: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            style={{
-              fontSize: '16px',
-              color: 'rgba(255,255,255,0.4)',
-              maxWidth: '520px',
-              margin: '0 auto',
-              lineHeight: 1.7,
-            }}
+            className="text-base max-w-[520px] mx-auto leading-relaxed
+                      text-gray-600 dark:text-white/40"
           >
             Explore my diverse portfolio of creative projects across design, development, and multimedia
           </motion.p>
