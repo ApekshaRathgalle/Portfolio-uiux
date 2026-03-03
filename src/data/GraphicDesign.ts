@@ -52,7 +52,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: g2,
+    imageUrl: cofee_post,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -136,7 +136,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: cofee_post,
+    imageUrl: g8,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -206,20 +206,6 @@ export const graphicProjects: Project[] = [
     challenges: [],
     solutions: [],
     imageUrl: g5,
-    category: 'graphic',
-    featured: false,
-    timeline: ''
-  },
-  {
-    id: 'graphic-14',
-    title: 'Design 14',
-    description: '',
-    longDescription: '',
-    technologies: [],
-    features: [],
-    challenges: [],
-    solutions: [],
-    imageUrl: g8,
     category: 'graphic',
     featured: false,
     timeline: ''
