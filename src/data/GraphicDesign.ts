@@ -7,6 +7,11 @@ import g6 from '../assets/g6.png';
 import g7 from '../assets/g7.png';
 import g8 from '../assets/g8.jpg';
 import g9 from '../assets/g9.png';
+import deal from '../assets/deal.png';
+import logo_coffee from '../assets/logo_coffee.png';
+import logo2 from '../assets/logo2.png';
+import p1 from '../assets/p1.png';
+import pizza from '../assets/pizza.png';
 
 export const graphicProjects: Project[] = [
   {
@@ -32,7 +37,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: g2,
+    imageUrl: pizza,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -46,7 +51,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: g3,
+    imageUrl: g2,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -60,7 +65,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: g5,
+    imageUrl: deal,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -102,7 +107,7 @@ export const graphicProjects: Project[] = [
     features: [],
     challenges: [],
     solutions: [],
-    imageUrl: g8,
+    imageUrl: g2,
     category: 'graphic',
     featured: false,
     timeline: ''
@@ -120,5 +125,89 @@ export const graphicProjects: Project[] = [
     category: 'graphic',
     featured: false,
     timeline: ''
+  },
+  {
+    id: 'graphic-9',
+    title: 'Design 9',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: g8,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
+  },
+  {
+    id: 'graphic-10',
+    title: 'Design 10',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: logo_coffee,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
+  },
+  {
+    id: 'graphic-11',
+    title: 'Design 11',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: logo2,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
+  },
+  {
+    id: 'graphic-12',
+    title: 'Design 12',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: p1,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
+  },
+  {
+    id: 'graphic-13',
+    title: 'Design 13',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: g3,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
+  },{
+    id: 'graphic-14',
+    title: 'Design 14',
+    description: '',
+    longDescription: '',
+    technologies: [],
+    features: [],
+    challenges: [],
+    solutions: [],
+    imageUrl: g5,
+    category: 'graphic',
+    featured: false,
+    timeline: ''
   }
+
 ];
