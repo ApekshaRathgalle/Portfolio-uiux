@@ -7,13 +7,7 @@ export const skills: Skill[] = [
   { name: 'Adobe Photoshop', level: 80, category: 'tools', icon: 'SiAdobephotoshop' },
   { name: 'Figma', level: 95, category: 'tools', icon: 'SiFigma' },
   { name: 'Git & GitHub', level: 90, category: 'tools', icon: 'SiGithub' },
-  { name: 'Android Studio', level: 80, category: 'tools', icon: 'SiAndroidstudio' },
-  { name: 'VS Code', level: 90, category: 'tools', icon: 'SiVisualstudiocode' },
-  { name: 'Canva', level: 90, category: 'tools', icon: 'SiCanva' },
-  { name: 'Postman', level: 80, category: 'tools', icon: 'SiPostman' },
-  { name: 'Blender', level: 70, category: 'tools', icon: 'SiBlender' },
-  { name: 'Unity', level: 75, category: 'tools', icon: 'SiUnity' },
-  { name: 'Unreal Engine', level: 70, category: 'tools', icon: 'SiUnrealengine' },
+  
 
   // Digital Marketing Tools
   { name: 'Google Analytics', level: 85, category: 'tools', icon: 'SiGoogleanalytics' },
