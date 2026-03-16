@@ -42,14 +42,14 @@ export const education: Education[] = [
   {
     degree: 'BSc (Hons) in Information Technology',
     institution: 'Sri Lanka Institute of Information Technology',
-    year: '2022 - Present',
-    description: 'Specializing in Software Engineering with focus on full-stack development and UI/UX design.'
+    year: '2023 - Present',
+    description: 'Specializing in Interactive Media and Digital Marketing'
   },
   {
     degree: 'GCE Advanced Level',
-    institution: 'Visakha Vidyalaya, Colombo',
+    institution: 'Anuradhapura Central College',
     year: '2021',
-    description: 'Physical Science stream with Mathematics, Physics, and Chemistry.'
+    description: 'Bio Science'
   }
 ];
 
