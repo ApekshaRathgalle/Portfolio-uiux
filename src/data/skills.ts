@@ -14,6 +14,22 @@ export const skills: Skill[] = [
   { name: 'Blender', level: 70, category: 'tools', icon: 'SiBlender' },
   { name: 'Unity', level: 75, category: 'tools', icon: 'SiUnity' },
   { name: 'Unreal Engine', level: 70, category: 'tools', icon: 'SiUnrealengine' },
+
+  // Digital Marketing Tools
+  { name: 'Google Analytics', level: 85, category: 'tools', icon: 'SiGoogleanalytics' },
+  { name: 'Google Ads', level: 80, category: 'tools', icon: 'SiGoogleads' },
+  { name: 'Meta Ads Manager', level: 75, category: 'tools', icon: 'SiMeta' },
+  { name: 'Mailchimp', level: 70, category: 'tools', icon: 'SiMailchimp' },
+  { name: 'HubSpot', level: 65, category: 'tools', icon: 'SiHubspot' },
+  { name: 'Google Search Console', level: 80, category: 'tools', icon: 'SiGooglesearchconsole' },
+
+  // Digital Marketing Technical Skills
+  { name: 'SEO / SEM', level: 80, category: 'technical', icon: 'TrendingUp' },
+  { name: 'Social Media Marketing', level: 85, category: 'technical', icon: 'Share2' },
+  { name: 'Content Marketing', level: 75, category: 'technical', icon: 'FileText' },
+  { name: 'Email Marketing', level: 75, category: 'technical', icon: 'Mail' },
+  { name: 'PPC Advertising', level: 70, category: 'technical', icon: 'MousePointer' },
+  { name: 'Digital Analytics', level: 80, category: 'technical', icon: 'BarChart2' },
   
   // Soft Skills (keep Lucide icons)
   { name: 'Problem Solving', level: 95, category: 'soft', icon: 'Lightbulb' },
