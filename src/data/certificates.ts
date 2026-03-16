@@ -30,7 +30,7 @@ export const certificates: Certificate[] = [
     title: 'Adobe Illustrator CC – Advanced Training',
     issuer: 'LinkedIn Learning',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://linkedin.com/learning/certificates/xxxxx',
     imageUrl: certificateBadge,
     skills: ['Adobe Illustrator', 'Graphic Design']
@@ -41,7 +41,7 @@ export const certificates: Certificate[] = [
     title: 'AI-Powered Performance Ads Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'AI Marketing', 'Performance Marketing']
@@ -51,7 +51,7 @@ export const certificates: Certificate[] = [
     title: 'AI-Powered Shopping Ads Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Shopping Ads', 'E-commerce Marketing']
@@ -61,7 +61,7 @@ export const certificates: Certificate[] = [
     title: 'Google Ads Apps Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'App Marketing', 'Mobile Advertising']
@@ -71,7 +71,7 @@ export const certificates: Certificate[] = [
     title: 'Google Ads Creative Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Creative Design', 'Ad Copy']
@@ -81,7 +81,7 @@ export const certificates: Certificate[] = [
     title: 'Google Ads Display Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Display Advertising', 'Banner Ads']
@@ -91,7 +91,7 @@ export const certificates: Certificate[] = [
     title: 'Google Ads Measurement Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Analytics', 'Performance Measurement']
@@ -101,7 +101,7 @@ export const certificates: Certificate[] = [
     title: 'Google Ads Search Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Search Advertising', 'Keyword Research']
@@ -111,7 +111,7 @@ export const certificates: Certificate[] = [
     title: 'Google Ads Video Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Video Advertising', 'YouTube Marketing']
@@ -121,7 +121,7 @@ export const certificates: Certificate[] = [
     title: 'Grow Offline Sales Certification',
     issuer: 'Google',
     issueDate: '',
-    status: 'In Progress',
+    status: 'Completed',
     credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Offline Marketing', 'Local Business']
