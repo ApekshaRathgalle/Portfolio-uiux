@@ -126,9 +126,7 @@ const About: React.FC = () => {
             }}
             className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed"
           >
-            I'm a passionate developer and designer who believes in creating digital experiences 
-            that not only look beautiful but also solve real problems. With a strong foundation 
-            in both technical development and user experience design.
+            I specialize in crafting digital marketing strategies and creative content that drive engagement, conversions, and measurable business growth. With expertise in social media, visual design, and data-driven campaigns, I combine creativity and analytics to deliver results that make brands stand out online
           </motion.p>
         </motion.div>
 
