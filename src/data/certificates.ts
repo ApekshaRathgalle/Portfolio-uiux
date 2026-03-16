@@ -25,16 +25,7 @@ export const certificates: Certificate[] = [
     imageUrl: certificateBadge,
     skills: ['Figma', 'Design Systems', 'UI/UX Design']
   },
-  {
-    id: 'cert-3',
-    title: 'Adobe Illustrator CC – Advanced Training',
-    issuer: 'LinkedIn Learning',
-    issueDate: '',
-    status: 'Completed',
-    credentialUrl: 'https://linkedin.com/learning/certificates/xxxxx',
-    imageUrl: certificateBadge,
-    skills: ['Adobe Illustrator', 'Graphic Design']
-  },
+ 
   // Google Ads Certifications
   {
     id: 'cert-4',
@@ -42,7 +33,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/1e8988b0-b6e5-4fee-83ac-a41ed9f6ba7e',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'AI Marketing', 'Performance Marketing']
   },
@@ -52,7 +43,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/79399e7e-42a1-4e4a-89eb-1b87e875073a',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Shopping Ads', 'E-commerce Marketing']
   },
@@ -62,7 +53,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/ff61a461-bbee-46f8-89e2-d77be84b5cd4#acc.W6A5SeJY',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'App Marketing', 'Mobile Advertising']
   },
@@ -72,7 +63,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/386f673a-1be3-4558-82ad-36942359bac2',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Creative Design', 'Ad Copy']
   },
@@ -82,7 +73,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/394d363e-14a9-4945-958a-c4ba7f99a756',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Display Advertising', 'Banner Ads']
   },
@@ -92,7 +83,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/6ad725f6-6e09-4042-a901-7c27f739e011',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Analytics', 'Performance Measurement']
   },
@@ -102,7 +93,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/6adad1f8-7500-4acf-b02e-b65b707bf5b6',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Search Advertising', 'Keyword Research']
   },
@@ -112,7 +103,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/68ecdadb-d8b8-461a-a8cc-fc20808db6cd',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Video Advertising', 'YouTube Marketing']
   },
@@ -122,7 +113,7 @@ export const certificates: Certificate[] = [
     issuer: 'Google',
     issueDate: '',
     status: 'Completed',
-    credentialUrl: 'https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-ads-certifications',
+    credentialUrl: 'https://skillshop.credential.net/79729caa-5c9f-42e7-b3c1-52d06067dab9',
     imageUrl: certificateBadge,
     skills: ['Google Ads', 'Offline Marketing', 'Local Business']
   }

@@ -44,6 +44,7 @@ export interface Certificate {
   title: string;
   issuer: string;
   issueDate: string;
+  status: 'Completed' | 'Verified' | 'In Progress';
   credentialId?: string;
   credentialUrl?: string;
   imageUrl?: string;
